@@ -1,0 +1,190 @@
+{
+  "app": {
+    "title": "PurposeOS",
+    "name": "PurposeOS"
+  },
+  "navigation": {
+    "reminders": "Reminders",
+    "actions": "Actions",
+    "notes": "Notes",
+    "stats": "Stats",
+    "settings": "Settings",
+    "keyboard_shortcuts": "Keyboard Shortcuts"
+  },
+  "status": {
+    "checking": "● Checking…",
+    "daemon_running": "Daemon running",
+    "daemon_stopped": "Daemon stopped"
+  },
+  "settings": {
+    "log_level": "Log level:",
+    "sound_command": "Sound command:",
+    "notification_timeout": "Notification timeout:",
+    "screen_wide_default": "Screen-wide by default",
+    "tracker_poll_interval": "Tracker poll interval:",
+    "notes_folder": "Notes folder:",
+    "language": "Language:",
+    "save": "Save & Reload Daemon",
+    "ms": "ms",
+    "sec": "sec"
+  },
+  "dialogs": {
+    "language_changed": "Language Changed",
+    "language_restart_message": "Language preference has been saved.\nPlease restart the application to see the changes in effect."
+  },
+  "reminders": {
+    "dialog": {
+      "add_title": "Add Reminder",
+      "edit_title": "Edit Reminder"
+    },
+    "field": {
+      "title": "Title:",
+      "message": "Message:",
+      "trigger": "Trigger:",
+      "time": "Time:",
+      "interval": "Interval:",
+      "day_of_week": "Day of week:",
+      "urgency": "Urgency:",
+      "auto_close": "Auto-close:",
+      "sound": "Sound:"
+    },
+    "check": {
+      "screen_wide": "Full-screen overlay",
+      "sound": "Sound",
+      "enabled": "Enabled"
+    },
+    "btn": {
+      "add": "+ Add Reminder",
+      "edit": "Edit",
+      "delete": "Delete",
+      "browse": "Browse…"
+    },
+    "table": {
+      "title": "Title",
+      "message": "Message",
+      "trigger": "Trigger",
+      "urgency": "Urgency",
+      "enabled": "Enabled"
+    },
+    "delete": {
+      "title": "Delete",
+      "confirm": "Delete this reminder?"
+    }
+  },
+  "trigger": {
+    "boot": "On boot",
+    "daily": "Daily",
+    "daily_at": "Daily at {time}",
+    "interval": "Every {n} min",
+    "weekly": "Weekly — {day}"
+  },
+  "actions": {
+    "dialog": {
+      "add_title": "Add Action",
+      "edit_title": "Edit Action"
+    },
+    "field": {
+      "type": "Type:",
+      "target": "Target:",
+      "notif_title": "Notif. Title:",
+      "notif_message": "Notif. Message:",
+      "trigger": "Trigger:",
+      "time": "Time:",
+      "interval": "Interval:",
+      "day_of_week": "Day of week:"
+    },
+    "check": {
+      "enabled": "Enabled"
+    },
+    "btn": {
+      "add": "+ Add Action",
+      "edit": "Edit",
+      "delete": "Delete",
+      "browse": "Browse…"
+    },
+    "table": {
+      "type": "Type",
+      "target": "Target",
+      "trigger": "Trigger",
+      "status": "Status",
+      "enabled": "Enabled"
+    },
+    "delete": {
+      "title": "Delete",
+      "confirm": "Delete this action?"
+    },
+    "placeholder": {
+      "target": "File path / app name / command / URL",
+      "file": "File path (e.g. ~/Documents/todo.txt)",
+      "app": "App binary or .desktop ID (e.g. firefox)",
+      "url": "URL (e.g. https://example.com)",
+      "command": "Shell command (e.g. notify-send 'Hello')",
+      "target_gen": "Target"
+    },
+    "status": {
+      "ok": "✓",
+      "no_target": "⚠ No target",
+      "file_not_found": "⚠ File not found",
+      "app_not_found": "⚠ App not found",
+      "app_not_in_path": "⚠ App not in PATH",
+      "no_url": "⚠ No URL",
+      "invalid_url": "⚠ Invalid URL",
+      "no_command": "⚠ No command"
+    }
+  },
+  "notes": {
+    "btn": {
+      "new": "+ New",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "close": "Close"
+    },
+    "table": {
+      "date": "Date",
+      "filename": "Filename",
+      "preview": "Preview"
+    },
+    "hint": {
+      "double_click": "Double-click a note to view it."
+    },
+    "dialog": {
+      "new_title": "New Note",
+      "new_header": "✏️  New Note",
+      "edit_prefix": "Edit — ",
+      "view_prefix": "📄  ",
+      "save_btn": "Save  (Ctrl+S)",
+      "cancel_btn": "Cancel",
+      "chars": "{n} chars",
+      "empty_warning": "⚠ Cannot save an empty note"
+    },
+    "delete": {
+      "title": "Delete Note",
+      "confirm": "Delete \"{name}\"?\nThis cannot be undone."
+    }
+  },
+  "stats": {
+    "heading": "App Usage",
+    "last": "Last",
+    "days": "days",
+    "btn": {
+      "refresh": "↻  Refresh"
+    },
+    "no_data": "No data yet. Run the daemon for a while first.",
+    "no_range": "No data in selected range.",
+    "desc": "Number of times you clicked ‘Done’ before the reminder closed by itself.",
+    "no_interactions": "No reminder interactions recorded yet.",
+    "no_daemon": "No data yet — the daemon needs to run for reminders to fire.",
+    "total_label": "Total: ",
+    "done_clicks": "{n} Done clicks",
+    "out_of": " out of {total} shown"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "min": "min",
+    "sec_suffix": "sec",
+    "path_warn_mean": "⚠ Did you mean: {path}",
+    "path_warn_missing": "⚠ Path not found: {path}"
+  }
+}

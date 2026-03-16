@@ -1,0 +1,190 @@
+{
+  "app": {
+    "title": "PurposeOS",
+    "name": "PurposeOS"
+  },
+  "navigation": {
+    "reminders": "Напоминания",
+    "actions": "Действия",
+    "notes": "Заметки",
+    "stats": "Статистика",
+    "settings": "Настройки",
+    "keyboard_shortcuts": "Горячие клавиши"
+  },
+  "status": {
+    "checking": "● Проверка…",
+    "daemon_running": "Демон запущен",
+    "daemon_stopped": "Демон остановлен"
+  },
+  "settings": {
+    "log_level": "Уровень лога:",
+    "sound_command": "Команда звука:",
+    "notification_timeout": "Таймаут уведомления:",
+    "screen_wide_default": "Полный экран по умолчанию",
+    "tracker_poll_interval": "Интервал опроса:",
+    "notes_folder": "Папка заметок:",
+    "language": "Язык:",
+    "save": "Сохранить и перезагрузить",
+    "ms": "мс",
+    "sec": "сек"
+  },
+  "dialogs": {
+    "language_changed": "Язык изменён",
+    "language_restart_message": "Настройка языка сохранена.\nПожалуйста, перезапустите приложение для применения изменений."
+  },
+  "reminders": {
+    "dialog": {
+      "add_title": "Добавить напоминание",
+      "edit_title": "Изменить напоминание"
+    },
+    "field": {
+      "title": "Заголовок:",
+      "message": "Сообщение:",
+      "trigger": "Триггер:",
+      "time": "Время:",
+      "interval": "Интервал:",
+      "day_of_week": "День недели:",
+      "urgency": "Важность:",
+      "auto_close": "Автозакрытие:",
+      "sound": "Звук:"
+    },
+    "check": {
+      "screen_wide": "Оверлей на весь экран",
+      "sound": "Звук",
+      "enabled": "Включено"
+    },
+    "btn": {
+      "add": "+ Добавить напоминание",
+      "edit": "Изменить",
+      "delete": "Удалить",
+      "browse": "Обзор…"
+    },
+    "table": {
+      "title": "Заголовок",
+      "message": "Сообщение",
+      "trigger": "Триггер",
+      "urgency": "Важность",
+      "enabled": "Вкл"
+    },
+    "delete": {
+      "title": "Удалить",
+      "confirm": "Удалить это напоминание?"
+    }
+  },
+  "trigger": {
+    "boot": "При запуске",
+    "daily": "Ежедневно",
+    "daily_at": "Ежедневно в {time}",
+    "interval": "Каждые {n} мин",
+    "weekly": "Еженедельно — {day}"
+  },
+  "actions": {
+    "dialog": {
+      "add_title": "Добавить действие",
+      "edit_title": "Изменить действие"
+    },
+    "field": {
+      "type": "Тип:",
+      "target": "Цель:",
+      "notif_title": "Заголовок уведомления:",
+      "notif_message": "Сообщение уведомления:",
+      "trigger": "Триггер:",
+      "time": "Время:",
+      "interval": "Интервал:",
+      "day_of_week": "День недели:"
+    },
+    "check": {
+      "enabled": "Включено"
+    },
+    "btn": {
+      "add": "+ Добавить действие",
+      "edit": "Изменить",
+      "delete": "Удалить",
+      "browse": "Обзор…"
+    },
+    "table": {
+      "type": "Тип",
+      "target": "Цель",
+      "trigger": "Триггер",
+      "status": "Статус",
+      "enabled": "Вкл"
+    },
+    "delete": {
+      "title": "Удалить",
+      "confirm": "Удалить это действие?"
+    },
+    "placeholder": {
+      "target": "Путь / имя приложения / команда / URL",
+      "file": "Путь к файлу (например: ~/Documents/todo.txt)",
+      "app": "Бинарник или .desktop (например: firefox)",
+      "url": "URL (например: https://example.com)",
+      "command": "Команда оболочки (например: notify-send 'Привет')",
+      "target_gen": "Цель"
+    },
+    "status": {
+      "ok": "✓",
+      "no_target": "⚠ Цель не указана",
+      "file_not_found": "⚠ Файл не найден",
+      "app_not_found": "⚠ Приложение не найдено",
+      "app_not_in_path": "⚠ Приложение не в PATH",
+      "no_url": "⚠ URL не указан",
+      "invalid_url": "⚠ Некорректный URL",
+      "no_command": "⚠ Команда не указана"
+    }
+  },
+  "notes": {
+    "btn": {
+      "new": "+ Новая",
+      "view": "Просмотр",
+      "edit": "Изменить",
+      "delete": "Удалить",
+      "close": "Закрыть"
+    },
+    "table": {
+      "date": "Дата",
+      "filename": "Файл",
+      "preview": "Предпросмотр"
+    },
+    "hint": {
+      "double_click": "Двойной щелчок по заметке для просмотра."
+    },
+    "dialog": {
+      "new_title": "Новая заметка",
+      "new_header": "✏️  Новая заметка",
+      "edit_prefix": "Редактирование — ",
+      "view_prefix": "📄  ",
+      "save_btn": "Сохранить  (Ctrl+S)",
+      "cancel_btn": "Отмена",
+      "chars": "{n} симв.",
+      "empty_warning": "⚠ Нельзя сохранить пустую заметку"
+    },
+    "delete": {
+      "title": "Удалить заметку",
+      "confirm": "Удалить \"{name}\"?\nОтменить действие невозможно."
+    }
+  },
+  "stats": {
+    "heading": "Использование приложений",
+    "last": "За",
+    "days": "дней",
+    "btn": {
+      "refresh": "↻  Обновить"
+    },
+    "no_data": "Данных пока нет. Запустите демон на некоторое время.",
+    "no_range": "Нет данных за выбранный период.",
+    "desc": "Количество нажатий кнопки «Готово» до автозакрытия напоминания.",
+    "no_interactions": "Взаимодействий с напоминаниями пока нет.",
+    "no_daemon": "Данных пока нет — запустите демон для активации напоминаний.",
+    "total_label": "Итого: ",
+    "done_clicks": "{n} нажатий «Готово»",
+    "out_of": " из {total} показанных"
+  },
+  "common": {
+    "yes": "Да",
+    "no": "Нет",
+    "min": "мин",
+    "sec_suffix": "сек",
+    "path_warn_mean": "⚠ Вы имели в виду: {path}",
+    "path_warn_missing": "⚠ Путь не найден: {path}"
+  }
+}

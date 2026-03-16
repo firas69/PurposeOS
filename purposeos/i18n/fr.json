@@ -1,0 +1,190 @@
+{
+  "app": {
+    "title": "PurposeOS",
+    "name": "PurposeOS"
+  },
+  "navigation": {
+    "reminders": "Rappels",
+    "actions": "Actions",
+    "notes": "Notes",
+    "stats": "Statistiques",
+    "settings": "Paramètres",
+    "keyboard_shortcuts": "Raccourcis clavier"
+  },
+  "status": {
+    "checking": "● Vérification…",
+    "daemon_running": "Démon actif",
+    "daemon_stopped": "Démon arrêté"
+  },
+  "settings": {
+    "log_level": "Niveau de log :",
+    "sound_command": "Commande son :",
+    "notification_timeout": "Délai notification :",
+    "screen_wide_default": "Plein écran par défaut",
+    "tracker_poll_interval": "Intervalle de sondage :",
+    "notes_folder": "Dossier notes :",
+    "language": "Langue :",
+    "save": "Enregistrer & Recharger",
+    "ms": "ms",
+    "sec": "sec"
+  },
+  "dialogs": {
+    "language_changed": "Langue modifiée",
+    "language_restart_message": "Préférence de langue enregistrée.\nVeuillez redémarrer l'application pour appliquer les changements."
+  },
+  "reminders": {
+    "dialog": {
+      "add_title": "Ajouter un rappel",
+      "edit_title": "Modifier le rappel"
+    },
+    "field": {
+      "title": "Titre :",
+      "message": "Message :",
+      "trigger": "Déclencheur :",
+      "time": "Heure :",
+      "interval": "Intervalle :",
+      "day_of_week": "Jour de la semaine :",
+      "urgency": "Urgence :",
+      "auto_close": "Fermeture auto :",
+      "sound": "Son :"
+    },
+    "check": {
+      "screen_wide": "Superposition plein écran",
+      "sound": "Son",
+      "enabled": "Activé"
+    },
+    "btn": {
+      "add": "+ Ajouter un rappel",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "browse": "Parcourir…"
+    },
+    "table": {
+      "title": "Titre",
+      "message": "Message",
+      "trigger": "Déclencheur",
+      "urgency": "Urgence",
+      "enabled": "Activé"
+    },
+    "delete": {
+      "title": "Supprimer",
+      "confirm": "Supprimer ce rappel ?"
+    }
+  },
+  "trigger": {
+    "boot": "Au démarrage",
+    "daily": "Quotidien",
+    "daily_at": "Quotidien à {time}",
+    "interval": "Toutes les {n} min",
+    "weekly": "Hebdomadaire — {day}"
+  },
+  "actions": {
+    "dialog": {
+      "add_title": "Ajouter une action",
+      "edit_title": "Modifier l'action"
+    },
+    "field": {
+      "type": "Type :",
+      "target": "Cible :",
+      "notif_title": "Titre notif. :",
+      "notif_message": "Message notif. :",
+      "trigger": "Déclencheur :",
+      "time": "Heure :",
+      "interval": "Intervalle :",
+      "day_of_week": "Jour de la semaine :"
+    },
+    "check": {
+      "enabled": "Activé"
+    },
+    "btn": {
+      "add": "+ Ajouter une action",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "browse": "Parcourir…"
+    },
+    "table": {
+      "type": "Type",
+      "target": "Cible",
+      "trigger": "Déclencheur",
+      "status": "État",
+      "enabled": "Activé"
+    },
+    "delete": {
+      "title": "Supprimer",
+      "confirm": "Supprimer cette action ?"
+    },
+    "placeholder": {
+      "target": "Chemin / nom app / commande / URL",
+      "file": "Chemin du fichier (ex : ~/Documents/todo.txt)",
+      "app": "Binaire ou .desktop (ex : firefox)",
+      "url": "URL (ex : https://example.com)",
+      "command": "Commande shell (ex : notify-send 'Bonjour')",
+      "target_gen": "Cible"
+    },
+    "status": {
+      "ok": "✓",
+      "no_target": "⚠ Aucune cible",
+      "file_not_found": "⚠ Fichier introuvable",
+      "app_not_found": "⚠ Application introuvable",
+      "app_not_in_path": "⚠ Application absente du PATH",
+      "no_url": "⚠ Aucune URL",
+      "invalid_url": "⚠ URL invalide",
+      "no_command": "⚠ Aucune commande"
+    }
+  },
+  "notes": {
+    "btn": {
+      "new": "+ Nouvelle",
+      "view": "Voir",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "close": "Fermer"
+    },
+    "table": {
+      "date": "Date",
+      "filename": "Fichier",
+      "preview": "Aperçu"
+    },
+    "hint": {
+      "double_click": "Double-cliquez sur une note pour la voir."
+    },
+    "dialog": {
+      "new_title": "Nouvelle note",
+      "new_header": "✏️  Nouvelle note",
+      "edit_prefix": "Modifier — ",
+      "view_prefix": "📄  ",
+      "save_btn": "Enregistrer  (Ctrl+S)",
+      "cancel_btn": "Annuler",
+      "chars": "{n} caractères",
+      "empty_warning": "⚠ Impossible d'enregistrer une note vide"
+    },
+    "delete": {
+      "title": "Supprimer la note",
+      "confirm": "Supprimer \"{name}\" ?\nCette action est irréversible."
+    }
+  },
+  "stats": {
+    "heading": "Utilisation des apps",
+    "last": "Derniers",
+    "days": "jours",
+    "btn": {
+      "refresh": "↻  Actualiser"
+    },
+    "no_data": "Pas encore de données. Lancez le démon quelques instants.",
+    "no_range": "Aucune donnée sur la période sélectionnée.",
+    "desc": "Nombre de fois où vous avez cliqué sur « Terminé » avant la fermeture automatique.",
+    "no_interactions": "Aucune interaction avec les rappels enregistrée.",
+    "no_daemon": "Pas encore de données — le démon doit tourner pour déclencher des rappels.",
+    "total_label": "Total : ",
+    "done_clicks": "{n} clics Terminé",
+    "out_of": " sur {total} affichés"
+  },
+  "common": {
+    "yes": "Oui",
+    "no": "Non",
+    "min": "min",
+    "sec_suffix": "sec",
+    "path_warn_mean": "⚠ Vouliez-vous dire : {path}",
+    "path_warn_missing": "⚠ Chemin introuvable : {path}"
+  }
+}

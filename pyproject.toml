@@ -1,0 +1,110 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "purposeos"
+version = "2.0.0"
+description = "PurposeOS — Linux desktop automation daemon v2"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "APScheduler>=3.10,<4.0",
+    "PyYAML>=6.0",
+    "tzlocal>=4.0",
+    "notify2>=0.3.1",
+    "watchdog>=3.0",
+]
+
+[project.optional-dependencies]
+gui = ["PySide6>=6.5"]
+test = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-mock>=3.0",
+    "freezegun>=1.0",
+    "ruff>=0.4",
+    "mypy>=1.8",
+]
+
+[project.scripts]
+adctl            = "purposeos.adctl:main"
+purposeos-daemon = "purposeos.main:main"
+
+# ── Package discovery ──────────────────────────────────────────────────────────
+
+[tool.setuptools.packages.find]
+where   = ["."]
+include = ["purposeos*"]
+
+[tool.setuptools.package-data]
+# Include i18n JSON translation files in the installed package.
+# Without this, pip install omits all non-.py files and translations silently fail.
+"purposeos.i18n" = ["*.json"]
+
+# ── Ruff (linter + formatter) ──────────────────────────────────────────────────
+
+[tool.ruff]
+target-version = "py310"
+line-length    = 100
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+]
+ignore = [
+    "E501",  # line length — handled by formatter
+    "B008",  # function calls in default args (common in CLI parsers)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]   # allow assert in tests
+
+[tool.ruff.format]
+quote-style  = "double"
+indent-style = "space"
+
+# ── Mypy (type checker) ────────────────────────────────────────────────────────
+
+[tool.mypy]
+python_version       = "3.10"
+ignore_missing_imports = true
+warn_unused_ignores  = true
+warn_return_any      = false
+no_error_summary     = true
+disallow_untyped_defs = false   # permissive — tighten over time
+check_untyped_defs   = true
+# Exclude GUI and GTK modules — heavy external types, not worth annotating first
+exclude = [
+    "purposeos/ui/",
+    "purposeos/gui/",
+]
+
+# ── Pytest ─────────────────────────────────────────────────────────────────────
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts   = "-v --tb=short"
+
+# ── Coverage ───────────────────────────────────────────────────────────────────
+
+[tool.coverage.run]
+source = ["purposeos"]
+omit   = [
+    "purposeos/ui/*",
+    "purposeos/gui/*",
+    "tests/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under   = 35   # raise this over time as coverage grows

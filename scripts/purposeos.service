@@ -1,0 +1,18 @@
+[Unit]
+Description=PurposeOS Desktop Automation Daemon
+Documentation=https://github.com/firas69/purposeos
+After=graphical-session.target dbus.service
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+# Import graphical session vars into systemd user env before starting
+ExecStartPre=/bin/bash -c 'systemctl --user import-environment DISPLAY WAYLAND_DISPLAY DBUS_SESSION_BUS_ADDRESS XDG_RUNTIME_DIR XAUTHORITY 2>/dev/null; true'
+ExecStart=%h/.local/bin/purposeos-daemon
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+PassEnvironment=DISPLAY WAYLAND_DISPLAY DBUS_SESSION_BUS_ADDRESS XDG_RUNTIME_DIR XAUTHORITY HOME USER
+
+[Install]
+WantedBy=default.target

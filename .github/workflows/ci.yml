@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            libnotify-bin libgirepository1.0-dev gir1.2-gtk-4.0 python3-gi
+
+      - name: Install package and test dependencies
+        run: pip install -e ".[test]"
+
+      - name: Run linter (ruff)
+        run: ruff check purposeos/
+        continue-on-error: true
+
+      - name: Run formatter check (ruff)
+        run: ruff format --check purposeos/
+        continue-on-error: true
+
+      - name: Run type checker (mypy)
+        run: mypy purposeos/ --ignore-missing-imports --no-error-summary
+        continue-on-error: true
+
+      - name: Run tests with coverage
+        run: |
+          pytest tests/ \
+            --cov=purposeos \
+            --cov-report=xml \
+            --cov-report=term-missing \
+            -v
+
+      - name: Upload coverage to Codecov
+        if: matrix.python-version == '3.13'
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  lint-shell:
+    name: Lint shell scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shellcheck
+        run: sudo apt-get install -y shellcheck
+      - name: Check shell scripts
+        run: |
+          shellcheck --severity=warning \
+            scripts/install.sh \
+            scripts/uninstall.sh \
+            scripts/update.sh \
+            scripts/set_gui_shortcut.sh \
+            scripts/set_notes_shortcut.sh
+        continue-on-error: true

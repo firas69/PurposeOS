@@ -1,0 +1,25 @@
+# PurposeOS v2 — Python dependencies
+# Install with: pip install --user -r requirements.txt
+
+# Core scheduling
+APScheduler>=3.10,<4.0
+
+# Config file parsing
+PyYAML>=6.0
+
+# Timezone support (critical: never use the string 'local')
+tzlocal>=4.0
+
+# Desktop notifications (primary backend)
+notify2>=0.3.1
+
+# Config file change watching (inotify; polling fallback built-in)
+watchdog>=3.0
+
+# GUI (optional — daemon runs without it)
+PySide6>=6.5
+
+# Note: the following are system packages installed via dnf:
+#   xdotool        — active window detection for app tracker
+#   python3-gobject — PyGObject/GI for GTK4 overlay
+#   gtk4           — GTK4 libraries for screen-wide overlay

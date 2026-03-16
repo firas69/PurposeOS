@@ -1,0 +1,190 @@
+{
+  "app": {
+    "title": "PurposeOS",
+    "name": "PurposeOS"
+  },
+  "navigation": {
+    "reminders": "التذكيرات",
+    "actions": "الإجراءات",
+    "notes": "الملاحظات",
+    "stats": "الإحصاءات",
+    "settings": "الإعدادات",
+    "keyboard_shortcuts": "اختصارات لوحة المفاتيح"
+  },
+  "status": {
+    "checking": "● جارٍ الفحص…",
+    "daemon_running": "الخدمة تعمل",
+    "daemon_stopped": "الخدمة متوقفة"
+  },
+  "settings": {
+    "log_level": "مستوى السجل:",
+    "sound_command": "أمر الصوت:",
+    "notification_timeout": "مهلة الإشعار:",
+    "screen_wide_default": "ملء الشاشة افتراضياً",
+    "tracker_poll_interval": "فترة الاستطلاع:",
+    "notes_folder": "مجلد الملاحظات:",
+    "language": "اللغة:",
+    "save": "حفظ وإعادة التحميل",
+    "ms": "مللي ث",
+    "sec": "ثانية"
+  },
+  "dialogs": {
+    "language_changed": "تم تغيير اللغة",
+    "language_restart_message": "تم حفظ تفضيل اللغة.\nيرجى إعادة تشغيل التطبيق لتطبيق التغييرات."
+  },
+  "reminders": {
+    "dialog": {
+      "add_title": "إضافة تذكير",
+      "edit_title": "تعديل التذكير"
+    },
+    "field": {
+      "title": "العنوان:",
+      "message": "الرسالة:",
+      "trigger": "المشغّل:",
+      "time": "الوقت:",
+      "interval": "الفترة:",
+      "day_of_week": "يوم الأسبوع:",
+      "urgency": "الأولوية:",
+      "auto_close": "الإغلاق التلقائي:",
+      "sound": "الصوت:"
+    },
+    "check": {
+      "screen_wide": "تراكب ملء الشاشة",
+      "sound": "صوت",
+      "enabled": "مفعّل"
+    },
+    "btn": {
+      "add": "+ إضافة تذكير",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "browse": "استعراض…"
+    },
+    "table": {
+      "title": "العنوان",
+      "message": "الرسالة",
+      "trigger": "المشغّل",
+      "urgency": "الأولوية",
+      "enabled": "مفعّل"
+    },
+    "delete": {
+      "title": "حذف",
+      "confirm": "هل تريد حذف هذا التذكير؟"
+    }
+  },
+  "trigger": {
+    "boot": "عند التشغيل",
+    "daily": "يومياً",
+    "daily_at": "يومياً في {time}",
+    "interval": "كل {n} دقيقة",
+    "weekly": "أسبوعياً — {day}"
+  },
+  "actions": {
+    "dialog": {
+      "add_title": "إضافة إجراء",
+      "edit_title": "تعديل الإجراء"
+    },
+    "field": {
+      "type": "النوع:",
+      "target": "الهدف:",
+      "notif_title": "عنوان الإشعار:",
+      "notif_message": "رسالة الإشعار:",
+      "trigger": "المشغّل:",
+      "time": "الوقت:",
+      "interval": "الفترة:",
+      "day_of_week": "يوم الأسبوع:"
+    },
+    "check": {
+      "enabled": "مفعّل"
+    },
+    "btn": {
+      "add": "+ إضافة إجراء",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "browse": "استعراض…"
+    },
+    "table": {
+      "type": "النوع",
+      "target": "الهدف",
+      "trigger": "المشغّل",
+      "status": "الحالة",
+      "enabled": "مفعّل"
+    },
+    "delete": {
+      "title": "حذف",
+      "confirm": "هل تريد حذف هذا الإجراء؟"
+    },
+    "placeholder": {
+      "target": "مسار الملف / اسم التطبيق / أمر / رابط",
+      "file": "مسار الملف (مثال: ~/Documents/todo.txt)",
+      "app": "ملف تنفيذي أو معرّف .desktop (مثال: firefox)",
+      "url": "رابط (مثال: https://example.com)",
+      "command": "أمر الطرفية (مثال: notify-send 'مرحبا')",
+      "target_gen": "الهدف"
+    },
+    "status": {
+      "ok": "✓",
+      "no_target": "⚠ لا يوجد هدف",
+      "file_not_found": "⚠ الملف غير موجود",
+      "app_not_found": "⚠ التطبيق غير موجود",
+      "app_not_in_path": "⚠ التطبيق غير موجود في PATH",
+      "no_url": "⚠ لا يوجد رابط",
+      "invalid_url": "⚠ رابط غير صالح",
+      "no_command": "⚠ لا يوجد أمر"
+    }
+  },
+  "notes": {
+    "btn": {
+      "new": "+ جديدة",
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "close": "إغلاق"
+    },
+    "table": {
+      "date": "التاريخ",
+      "filename": "اسم الملف",
+      "preview": "معاينة"
+    },
+    "hint": {
+      "double_click": "انقر نقراً مزدوجاً على الملاحظة لعرضها."
+    },
+    "dialog": {
+      "new_title": "ملاحظة جديدة",
+      "new_header": "✏️  ملاحظة جديدة",
+      "edit_prefix": "تعديل — ",
+      "view_prefix": "📄  ",
+      "save_btn": "حفظ  (Ctrl+S)",
+      "cancel_btn": "إلغاء",
+      "chars": "{n} حرف",
+      "empty_warning": "⚠ لا يمكن حفظ ملاحظة فارغة"
+    },
+    "delete": {
+      "title": "حذف الملاحظة",
+      "confirm": "هل تريد حذف \"{name}\"؟\nلا يمكن التراجع عن هذا الإجراء."
+    }
+  },
+  "stats": {
+    "heading": "استخدام التطبيقات",
+    "last": "آخر",
+    "days": "أيام",
+    "btn": {
+      "refresh": "↻  تحديث"
+    },
+    "no_data": "لا توجد بيانات بعد. شغّل الخدمة لبعض الوقت.",
+    "no_range": "لا توجد بيانات في النطاق المحدد.",
+    "desc": "عدد مرات النقر على 'تم' قبل إغلاق التذكير تلقائياً.",
+    "no_interactions": "لم يتم تسجيل أي تفاعل مع التذكيرات بعد.",
+    "no_daemon": "لا توجد بيانات بعد — يجب تشغيل الخدمة لتفعيل التذكيرات.",
+    "total_label": "المجموع: ",
+    "done_clicks": "{n} نقرة تم",
+    "out_of": " من أصل {total} معروض"
+  },
+  "common": {
+    "yes": "نعم",
+    "no": "لا",
+    "min": "دقيقة",
+    "sec_suffix": "ثانية",
+    "path_warn_mean": "⚠ هل تقصد: {path}",
+    "path_warn_missing": "⚠ المسار غير موجود: {path}"
+  }
+}
