@@ -24,15 +24,6 @@ Built for Fedora (GNOME/Wayland), compatible with Ubuntu, Arch, and openSUSE.
 
 ---
 
-## Demo
-
-<!-- Terminal demo -->
-![adctl CLI demo](docs/demo-cli.gif)
-
-<!-- GUI dashboard screenshot -->
-![PurposeOS dashboard](docs/screenshot-dashboard.png)
-
----
 
 ## Installation
 
@@ -160,12 +151,12 @@ Every time you click Done on a notification, the response time (seconds from the
 
 ```
 REMINDER RESPONSE TIMES — THIS WEEK
-─────────────────────────────────────────────────────────────
-Reminder          Avg       Count      Trend
-─────────────────────────────────────────────────────────────
-Morning check     4s        12         ↓ 6s faster
-Drink water       18s       8          ≈ same as last week
-Focus block       32s       5          ↑ 11s slower
+──────────────────────────────────────
+Reminder          Avg       Count      
+──────────────────────────────────────
+Morning check     4s        12      
+Drink water       18s       8       
+Focus block       32s       5       
 ```
 
 This is intentionally minimal. A fast response doesn't prove deep focus, and a slow one doesn't prove distraction — but the trend over time is harder to game than a click count. If your "Stand up" reminder consistently takes 40 seconds to acknowledge, that's information.
