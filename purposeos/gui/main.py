@@ -98,13 +98,14 @@ class PurposeOSWindow:
         sidebar_layout.setSpacing(0)
 
         logo = QLabel("⚡ " + t("app.name", "PurposeOS"))
+        # Aligned to QListWidget inner text (24px) and matching _style.py primary color (#00F2FF)
         logo.setStyleSheet(
-            "font-size:16px; font-weight:700; color:#3B82F6; padding:0 16px 16px 16px;"
+            "font-size:16px; font-weight:700; color:#00F2FF; padding:0 24px 16px 24px;"
         )
         sidebar_layout.addWidget(logo)
 
         nav = QListWidget()
-        nav.setStyleSheet("background: transparent; border: none;")
+        # Removed redundant inline styles to allow _style.py QListWidget rules to apply natively
         section_names = [
             t("navigation.reminders", "Reminders"),
             t("navigation.actions", "Actions"),
@@ -123,7 +124,7 @@ class PurposeOSWindow:
         # Keyboard shortcuts guide
         guide_label = QLabel(t("navigation.keyboard_shortcuts", "Keyboard Shortcuts"))
         guide_label.setStyleSheet(
-            "font-size:11px; font-weight:600; color:#3B82F6; padding:8px 16px 4px 16px;"
+            "font-size:11px; font-weight:600; color:#00F2FF; padding:8px 24px 4px 24px;"
         )
         sidebar_layout.addWidget(guide_label)
 
@@ -137,12 +138,12 @@ class PurposeOSWindow:
             f"</span>"
         )
         guide_text.setTextFormat(Qt.TextFormat.RichText)
-        guide_text.setStyleSheet("padding:0 16px 8px 16px; color:#64748B;")
+        guide_text.setStyleSheet("padding:0 24px 8px 24px; color:#64748B;")
         guide_text.setWordWrap(True)
         sidebar_layout.addWidget(guide_text)
 
         status_lbl = QLabel(t("status.checking", "● Checking…"))
-        status_lbl.setStyleSheet("color:#64748B; font-size:11px; padding:8px 16px;")
+        status_lbl.setStyleSheet("color:#64748B; font-size:11px; padding:8px 24px;")
         sidebar_layout.addWidget(status_lbl)
         self._status_lbl = status_lbl
 
@@ -594,20 +595,6 @@ class PurposeOSWindow:
 
     # ── Stats ────────────────────────────────────────────────────
     #
-    # One scroll area, two sections rendered by _refresh_stats():
-    #   • Setup-Action Launches (Metric A) — simple count cards
-    #   • Reminder Done Rate   (Metric B) — progress-bar cards
-    #
-    # No chart widget, no QtCharts dependency.
-
-    # ── Stats ────────────────────────────────────────────────────
-    #
-    # Shows per-reminder average response time with a this-week vs
-    # last-week trend. Lower avg = faster response = better focus.
-    # One scroll area, one Refresh button, nothing else.
-
-    # ── Stats ────────────────────────────────────────────────────
-    #
     # Shows per-reminder average response time with a this-week vs
     # last-week trend. Lower avg = faster response = better focus.
     # One scroll area, one Refresh button, nothing else.
@@ -647,11 +634,7 @@ class PurposeOSWindow:
 
         btn_row = QHBoxLayout()
         refresh_btn = QPushButton(t("stats.btn.refresh", "↻  Refresh"))
-        refresh_btn.setStyleSheet(
-            "QPushButton { background-color: #1D4ED8; color: white; border-radius: 6px;"
-            " padding: 6px 18px; font-size: 13px; }"
-            "QPushButton:hover { background-color: #2563EB; }"
-        )
+        # Removed hardcoded blue style so _style.py primary style maps natively here too
         refresh_btn.clicked.connect(self._refresh_stats)
         btn_row.addStretch()
         btn_row.addWidget(refresh_btn)
@@ -943,7 +926,8 @@ class PurposeOSWindow:
             else t("status.daemon_stopped", "Daemon stopped")
         )
         self._status_lbl.setText(f"{indicator} {status_text}")
-        self._status_lbl.setStyleSheet(f"color:{colour}; font-size:11px; padding:8px 16px;")
+        # Keep horizontal padding at 24px here as well
+        self._status_lbl.setStyleSheet(f"color:{colour}; font-size:11px; padding:8px 24px;")
 
     def show(self, start_tab: str | None = None):
         if start_tab:
