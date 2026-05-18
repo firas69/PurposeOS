@@ -1,0 +1,657 @@
+.\" purposeos.1 - Manual page for PurposeOS
+.TH PURPOSEOS 1 "May 2026" "PurposeOS 2.0.0" "User Commands"
+
+.SH NAME
+purposeos \- Linux desktop automation daemon for reminders, scheduled actions, notes, and focus statistics
+
+.SH SYNOPSIS
+.B adctl
+.RI COMMAND
+.RI [ OPTIONS ]
+
+.B adctl
+.B start
+
+.B adctl
+.B stop
+
+.B adctl
+.B restart
+
+.B adctl
+.B reload
+
+.B adctl
+.B status
+
+.B adctl
+.B logs
+.RB [ \-n
+.IR LINES ]
+
+.B adctl
+.B enable
+
+.B adctl
+.B disable
+
+.B adctl
+.B gui
+.RB [ \-\-notes ]
+
+.B adctl
+.B quicknote
+
+.B adctl
+.B reminders
+.RI SUBCOMMAND
+.RI [ OPTIONS ]
+
+.B adctl
+.B actions
+.RI SUBCOMMAND
+.RI [ OPTIONS ]
+
+.B adctl
+.B notes
+.RI SUBCOMMAND
+.RI [ OPTIONS ]
+
+.B adctl
+.B stats
+.RI SUBCOMMAND
+.RI [ OPTIONS ]
+
+.B adctl
+.B update
+
+.B adctl
+.B uninstall
+
+.B adctl
+.B version
+
+.B purposeos-daemon
+
+.SH DESCRIPTION
+.B PurposeOS
+is a Linux desktop automation daemon designed for personal productivity workflows.
+It provides scheduled reminders, scheduled desktop actions, quick note capture,
+a full PySide6 graphical dashboard, terminal management commands, and basic
+focus/statistics tracking.
+
+PurposeOS is built around three main interfaces:
+
+.TP
+.B Daemon
+The background daemon is started by
+.BR purposeos-daemon .
+It loads the YAML configuration file, initializes logging, starts the application
+tracker, builds scheduled reminder and action jobs, watches the configuration
+file for changes, and handles shutdown/reload signals.
+
+.TP
+.B CLI
+The
+.B adctl
+command is the primary administration interface. It controls the daemon,
+manages reminders, manages scheduled actions, opens the GUI, manages notes,
+prints statistics, and performs package self-management tasks.
+
+.TP
+.B GUI
+The graphical interface is implemented with PySide6 and can be launched with
+.BR "adctl gui" .
+It provides sections for reminders, actions, notes, statistics, and settings.
+A lightweight floating quick-note window can be launched with
+.BR "adctl quicknote" .
+
+PurposeOS is installed as a per-user desktop service, not as a system-wide root
+daemon. The service runs through
+.BR systemd --user ,
+starts after the graphical session is available, imports desktop session
+environment variables, and restarts automatically on failure.
+
+The daemon uses a YAML configuration file for persistent reminders, actions,
+and settings. It automatically creates a skeleton configuration file if none
+exists. Configuration changes can be live-reloaded through
+.B adctl reload
+or by saving the configuration file while the watcher is active.
+
+.SH COMMANDS
+
+.SS Daemon control commands
+.TP
+.B adctl start
+Start the PurposeOS daemon. The command first attempts to start the user
+systemd service
+.BR purposeos.service .
+If systemd startup fails, it falls back to launching the Python daemon module
+directly.
+
+.TP
+.B adctl stop
+Stop the running daemon by sending
+.B SIGTERM
+to the process ID recorded in the daemon PID file.
+
+.TP
+.B adctl restart
+Stop the daemon, wait briefly, and start it again.
+
+.TP
+.B adctl reload
+Live-reload the daemon configuration by sending
+.B SIGHUP
+to the running daemon process.
+
+.TP
+.B adctl status
+Show whether the daemon is running and display its process ID when available.
+
+.TP
+.B adctl logs
+Show recent daemon log lines from the PurposeOS log file.
+
+.TP
+.BI "adctl logs \-n " LINES
+Show the last
+.I LINES
+lines from the daemon log. The default is 50 lines.
+
+.TP
+.B adctl enable
+Enable
+.B purposeos.service
+to start automatically at user login.
+
+.TP
+.B adctl disable
+Disable automatic startup of
+.B purposeos.service
+at user login.
+
+.SS GUI commands
+.TP
+.B adctl gui
+Open the full PurposeOS graphical dashboard.
+
+.TP
+.B adctl gui --notes
+Open the graphical dashboard directly on the Notes tab.
+
+.TP
+.B adctl quicknote
+Open the floating quick-note window.
+
+.SS Reminder commands
+.TP
+.B adctl reminders list
+List configured reminders with their number, title, trigger, urgency, and
+enabled state.
+
+.TP
+.BI "adctl reminders add --message " TEXT
+Add a reminder. If no trigger option is provided, the reminder uses the
+.B boot
+trigger.
+
+.TP
+.BI "adctl reminders add --message " TEXT " --at " HH:MM
+Add a daily reminder at the specified time.
+
+.TP
+.BI "adctl reminders add --message " TEXT " --every " MINUTES
+Add an interval reminder that repeats every
+.I MINUTES
+minutes.
+
+.TP
+.BI "adctl reminders add --message " TEXT " --day " DAY
+Add a weekly reminder. The
+.I DAY
+argument may be a weekday such as
+.BR mon ,
+.BR tue ,
+.BR wed ,
+.BR thu ,
+.BR fri ,
+.BR sat ,
+or
+.BR sun .
+
+.TP
+.BI "--title " NAME
+Set the reminder title. The default title is
+.BR Reminder .
+
+.TP
+.BR "--urgency " "low|normal|critical"
+Set the notification urgency. The default is
+.BR normal .
+
+.TP
+.BI "--sound " SOUND
+Set a sound name or sound file path for the reminder.
+
+.TP
+.B --no-overlay
+Use a standard desktop notification instead of the screen-wide overlay.
+
+.TP
+.BI "--close " SECONDS
+Set the auto-close time for non-critical screen-wide overlays. The default is
+30 seconds.
+
+.TP
+.BI "adctl reminders remove " NUMBER
+Remove the reminder identified by
+.I NUMBER
+from
+.BR "adctl reminders list" .
+
+.TP
+.BI "adctl reminders enable " NUMBER
+Enable the reminder identified by
+.IR NUMBER .
+
+.TP
+.BI "adctl reminders disable " NUMBER
+Disable the reminder identified by
+.I NUMBER
+without deleting it.
+
+.SS Action commands
+.TP
+.B adctl actions list
+List configured scheduled actions with their number, type, target, trigger,
+and enabled state.
+
+.TP
+.BI "adctl actions add --type " TYPE " --target " TARGET
+Add a scheduled action. If no trigger option is provided, the action uses the
+.B boot
+trigger.
+
+.TP
+.BR "--type " "open_file|open_app|run_command|open_url|show_notification"
+Set the action type.
+
+.TP
+.BI "--target " TARGET
+Set the action target. The meaning depends on the action type:
+a file path for
+.BR open_file ,
+an application command for
+.BR open_app ,
+a shell command for
+.BR run_command ,
+a URL for
+.BR open_url ,
+or notification data for
+.BR show_notification .
+
+.TP
+.BI "--at " HH:MM
+Run the action daily at the specified time.
+
+.TP
+.BI "--every " MINUTES
+Run the action repeatedly every
+.I MINUTES
+minutes.
+
+.TP
+.BI "--day " DAY
+Run the action weekly on the specified day.
+
+.TP
+.BI "adctl actions remove " NUMBER
+Remove the action identified by
+.I NUMBER
+from
+.BR "adctl actions list" .
+
+.TP
+.BI "adctl actions enable " NUMBER
+Enable the action identified by
+.IR NUMBER .
+
+.TP
+.BI "adctl actions disable " NUMBER
+Disable the action identified by
+.I NUMBER
+without deleting it.
+
+.SS Notes commands
+.TP
+.B adctl notes list
+List saved notes.
+
+.TP
+.B adctl notes new
+Create a new note using the terminal editor.
+
+.TP
+.BI "adctl notes show " NUMBER
+Print the selected note to standard output.
+
+.TP
+.BI "adctl notes edit " NUMBER
+Edit the selected note in the terminal editor.
+
+.TP
+.BI "adctl notes delete " NUMBER
+Delete the selected note.
+
+.SS Statistics commands
+.TP
+.B adctl stats
+Show today's statistics. This defaults to the same behavior as
+.BR "adctl stats today" .
+
+.TP
+.B adctl stats today
+Show today's tracked application usage statistics.
+
+.TP
+.B adctl stats week
+Show this week's tracked application usage statistics.
+
+.TP
+.B adctl stats notifications
+Show notification interaction statistics.
+
+.TP
+.BI "adctl stats range " START " " END
+Show tracked statistics for a date range. Dates must use
+.B YYYY-MM-DD
+format.
+
+.TP
+.BI "adctl stats app " APP_NAME
+Show a per-application daily breakdown for the specified application.
+
+.TP
+.BI "adctl stats app " APP_NAME " --days " DAYS
+Show a per-application breakdown for the last
+.I DAYS
+days. The default is 7 days.
+
+.TP
+.B adctl stats diagnose
+Run diagnostics for the statistics tracker. This checks the SQLite database,
+graphical session environment variables, and active-window detection methods.
+
+.SS Package management commands
+.TP
+.B adctl update
+Run the recorded project update script from the source path saved during
+installation.
+
+.TP
+.B adctl uninstall
+Run the installed uninstaller from the PurposeOS manifest directory.
+
+.TP
+.B adctl version
+Print the installed PurposeOS version.
+
+.SH FILES
+.TP
+.I ~/.config/automation-daemon/config.yaml
+Main PurposeOS YAML configuration file. Contains global settings, reminders,
+and actions.
+
+.TP
+.I ~/.config/automation-daemon/notes/
+Default directory for plain text notes.
+
+.TP
+.I ~/.local/share/automation-daemon/tracker.db
+SQLite database used for application tracking and notification interaction
+statistics.
+
+.TP
+.I ~/.local/share/automation-daemon/logs/daemon.log
+Main daemon log file.
+
+.TP
+.I ~/.local/share/automation-daemon/daemon.pid
+PID file written by the daemon while it is running.
+
+.TP
+.I ~/.local/share/automation-daemon/scheduler_state.yaml
+Scheduler state file used to preserve interval scheduling information and boot
+detection state.
+
+.TP
+.I ~/.local/share/purposeos/uninstall.sh
+Installed uninstaller script used by
+.BR "adctl uninstall" .
+
+.TP
+.I ~/.local/share/purposeos/source_path
+Recorded source tree path used by
+.BR "adctl update" .
+
+.TP
+.I ~/.config/systemd/user/purposeos.service
+User-level systemd service unit for the PurposeOS daemon.
+
+.TP
+.I ~/.local/bin/adctl
+User command wrapper for the PurposeOS CLI.
+
+.TP
+.I ~/.local/bin/purposeos-daemon
+User command wrapper for the daemon entry point.
+
+.TP
+.I ~/.local/share/applications/purposeos-gui.desktop
+Desktop launcher for the full PurposeOS GUI.
+
+.TP
+.I ~/.local/share/applications/purposeos-quicknote.desktop
+Desktop launcher for the quick-note window.
+
+.SH CONFIGURATION
+The configuration file is written in YAML. PurposeOS ignores unknown YAML keys
+to preserve forward compatibility with older configuration files.
+
+A minimal configuration example:
+
+.EX
+settings:
+  log_level: INFO
+  sound_command: paplay
+  notification_timeout_ms: 30000
+  screen_wide_default: true
+  tracker_poll_interval_sec: 5
+  notes_dir: ""
+  language: en
+
+reminders:
+  - title: "Morning Check-in"
+    message: "Review your task list."
+    trigger: daily
+    trigger_value: "09:00"
+    urgency: normal
+    screen_wide: true
+    auto_close_sec: 30
+    enabled: true
+
+actions:
+  - action_type: open_file
+    trigger: boot
+    target: ~/Documents/todo.txt
+    enabled: true
+.EE
+
+Supported reminder triggers and action triggers are:
+
+.TP
+.B boot
+Run shortly after daemon startup when a new system boot is detected.
+
+.TP
+.B daily
+Run every day at a time specified by
+.BR trigger_value ,
+usually in
+.B HH:MM
+format.
+
+.TP
+.B interval_minutes
+Run repeatedly every
+.B trigger_value
+minutes.
+
+.TP
+.B weekly
+Run weekly on the weekday specified by
+.BR trigger_value .
+
+.SH ENVIRONMENT
+PurposeOS normally runs as a user systemd service inside a graphical desktop
+session. The service imports or passes the following environment variables when
+available:
+
+.TP
+.B DISPLAY
+X11 display identifier.
+
+.TP
+.B WAYLAND_DISPLAY
+Wayland display identifier.
+
+.TP
+.B DBUS_SESSION_BUS_ADDRESS
+D-Bus session bus address, required by many desktop integration components.
+
+.TP
+.B XDG_RUNTIME_DIR
+Runtime directory used by desktop session services.
+
+.TP
+.B XAUTHORITY
+X11 authority file path.
+
+.TP
+.B HOME
+User home directory.
+
+.TP
+.B USER
+Current user name.
+
+.TP
+.B PYTHONUNBUFFERED
+The service sets this to
+.B 1
+so daemon output is not buffered.
+
+.SH EXAMPLES
+Start the daemon:
+
+.EX
+adctl start
+.EE
+
+Check daemon status:
+
+.EX
+adctl status
+.EE
+
+Show the last 100 log lines:
+
+.EX
+adctl logs -n 100
+.EE
+
+Add a daily reminder:
+
+.EX
+adctl reminders add --message "Stand up" --at 11:00
+.EE
+
+Add an interval reminder:
+
+.EX
+adctl reminders add --message "Drink water" --every 60 --urgency low
+.EE
+
+Add an action that opens a file every morning:
+
+.EX
+adctl actions add --type open_file --target ~/todo.txt --at 09:00
+.EE
+
+Open the GUI:
+
+.EX
+adctl gui
+.EE
+
+Open the quick-note window:
+
+.EX
+adctl quicknote
+.EE
+
+View weekly statistics:
+
+.EX
+adctl stats week
+.EE
+
+Reload configuration without restarting:
+
+.EX
+adctl reload
+.EE
+
+.SH DIAGNOSTICS
+If the daemon does not start, inspect the user service:
+
+.EX
+systemctl --user status purposeos.service
+.EE
+
+Inspect daemon logs:
+
+.EX
+adctl logs -n 100
+.EE
+
+Inspect journal logs:
+
+.EX
+journalctl --user -u purposeos.service
+.EE
+
+Reload the user systemd manager after editing the service file:
+
+.EX
+systemctl --user daemon-reload
+.EE
+
+Run statistics diagnostics:
+
+.EX
+adctl stats diagnose
+.EE
+
+.SH AUTHOR
+Firas Triki
+
+.SH SEE ALSO
+.BR systemd (1),
+.BR systemctl (1),
+.BR journalctl (1),
+.BR notify-send (1),
+.BR xdotool (1),
+.BR gsettings (1),
+.BR python (1)

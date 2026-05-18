@@ -137,6 +137,54 @@ elif [[ ! -d "${MANIFEST_DIR}" ]]; then
     warn "Re-run scripts/install.sh to recreate it."
 fi
 
+# ── Refresh / install man page ────────────────────────────────────────────────
+MAN_SRC=""
+for candidate in \
+    "${PROJECT_ROOT}/purposeos.1" \
+    "${PROJECT_ROOT}/docs/purposeos.1" \
+    "${SCRIPT_DIR}/purposeos.1"; do
+    [[ -f "${candidate}" ]] && { MAN_SRC="${candidate}"; break; }
+done
+
+USER_MAN_DIR="${HOME}/.local/share/man/man1"
+MAN_DEST="${USER_MAN_DIR}/purposeos.1.gz"
+ADCTL_MAN_DEST="${USER_MAN_DIR}/adctl.1.gz"
+
+if [[ -n "${MAN_SRC}" ]]; then
+    mkdir -p "${USER_MAN_DIR}"
+
+    tmp_man="$(mktemp)"
+    gzip -c "${MAN_SRC}" > "${tmp_man}"
+
+    if [[ ! -f "${MAN_DEST}" ]] || ! cmp -s "${tmp_man}" "${MAN_DEST}"; then
+        cp "${tmp_man}" "${MAN_DEST}"
+        ok "Man page installed/refreshed: purposeos(1)"
+        (( updated++ )) || true
+    else
+        ok "Man page already up to date: purposeos(1)"
+    fi
+
+    rm -f "${tmp_man}"
+
+    if [[ ! -L "${ADCTL_MAN_DEST}" ]] || [[ "$(readlink "${ADCTL_MAN_DEST}" 2>/dev/null)" != "purposeos.1.gz" ]]; then
+        ln -sf "purposeos.1.gz" "${ADCTL_MAN_DEST}"
+        ok "Man page alias installed/refreshed: adctl(1)"
+        (( updated++ )) || true
+    else
+        ok "Man page alias already up to date: adctl(1)"
+    fi
+
+    if command -v mandb &>/dev/null; then
+        mandb "${HOME}/.local/share/man" >/dev/null 2>&1 || true
+    fi
+else
+    warn "purposeos.1 not found — man page not updated."
+    warn "Expected one of:"
+    warn "  ${PROJECT_ROOT}/purposeos.1"
+    warn "  ${PROJECT_ROOT}/docs/purposeos.1"
+    warn "  ${SCRIPT_DIR}/purposeos.1"
+fi
+
 # ── Summary ────────────────────────────────────────────────────────────────────
 echo ""
 if (( updated == 0 )); then

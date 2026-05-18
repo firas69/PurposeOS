@@ -136,14 +136,47 @@ chmod +x "${MANIFEST_DIR}/uninstall.sh"
 echo "${PROJECT_ROOT}" > "${MANIFEST_DIR}/source_path"
 ok "Manifest written to ${MANIFEST_DIR}"
 
-# ── 7. Runtime directories ─────────────────────────────────────────────────────
+
+# ── 7. Man page installation ───────────────────────────────────────────────────
+info "Installing man page..."
+
+MAN_SRC=""
+for candidate in \
+    "${PROJECT_ROOT}/purposeos.1" \
+    "${PROJECT_ROOT}/docs/purposeos.1" \
+    "${SCRIPT_DIR}/purposeos.1"; do
+    [[ -f "${candidate}" ]] && { MAN_SRC="${candidate}"; break; }
+done
+
+if [[ -n "${MAN_SRC}" ]]; then
+    USER_MAN_DIR="${HOME}/.local/share/man/man1"
+    mkdir -p "${USER_MAN_DIR}"
+
+    gzip -c "${MAN_SRC}" > "${USER_MAN_DIR}/purposeos.1.gz"
+
+    # adctl is the real CLI command, so make man adctl work too.
+    ln -sf "purposeos.1.gz" "${USER_MAN_DIR}/adctl.1.gz"
+
+    # Update man database if available.
+    mandb "${HOME}/.local/share/man" >/dev/null 2>&1 || true
+
+    ok "Man page installed. Try: man purposeos or man adctl"
+else
+    warn "purposeos.1 not found — skipping man page installation."
+    warn "Expected one of:"
+    warn "  ${PROJECT_ROOT}/purposeos.1"
+    warn "  ${PROJECT_ROOT}/docs/purposeos.1"
+    warn "  ${SCRIPT_DIR}/purposeos.1"
+fi
+
+# ── 8. Runtime directories ─────────────────────────────────────────────────────
 info "Creating runtime directories..."
 mkdir -p \
     "${HOME}/.local/share/automation-daemon/logs" \
     "${HOME}/.config/automation-daemon/notes"
 ok "Runtime directories ready."
 
-# ── 8. systemd user service ────────────────────────────────────────────────────
+# ── 9. systemd user service ────────────────────────────────────────────────────
 SYSTEMD_DIR="${HOME}/.config/systemd/user"
 mkdir -p "${SYSTEMD_DIR}"
 
@@ -190,7 +223,7 @@ systemctl --user is-active --quiet purposeos.service \
     && ok "Daemon is running." \
     || warn "Daemon not confirmed active. Run: adctl start"
 
-# ── 9. Desktop entries ─────────────────────────────────────────────────────────
+# ── 10. Desktop entries ─────────────────────────────────────────────────────────
 APPS_DIR="${HOME}/.local/share/applications"
 mkdir -p "${APPS_DIR}"
 info "Installing .desktop entries..."
@@ -222,7 +255,7 @@ DESKEOF
 update-desktop-database "${APPS_DIR}" 2>/dev/null || true
 ok ".desktop entries installed."
 
-# ── 10. Keyboard shortcuts (GNOME) ────────────────────────────────────────────
+# ── 11. Keyboard shortcuts (GNOME) ────────────────────────────────────────────
 echo ""
 echo -e "${BOLD}── Optional: GNOME keyboard shortcuts ──────────────────────────${RESET}"
 
